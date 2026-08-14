@@ -4,7 +4,7 @@
 ## AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=OSS Kernel | POCO X3 NFC
+kernel.string=OSS KERNEL -  Based LineageOS
 do.devicecheck=1
 do.modules=0
 do.systemless=1
@@ -45,17 +45,8 @@ patch_legacy_bootargs() {
 
     if [ -n "$PROP_MIUI" ]; then
         ui_print "MIUI $PROP_MIUI detected, defaulting to legacy bootargs"
-        patch_cmdline init.is_legacy_ebpf init.is_legacy_ebpf=1
         patch_cmdline init.is_legacy_timestamp init.is_legacy_timestamp=1
         return
-    fi
-
-    if [ "$ANDROID_VERSION" -lt 15 ]; then
-        ui_print "Enabling legacy eBPF bootarg..."
-        patch_cmdline init.is_legacy_ebpf init.is_legacy_ebpf=1
-    else
-        ui_print "Disabling legacy eBPF bootarg..."
-        patch_cmdline init.is_legacy_ebpf init.is_legacy_ebpf=0
     fi
 
     if [ "$ANDROID_VERSION" -lt 13 ]; then
